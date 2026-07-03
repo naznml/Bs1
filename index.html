@@ -178,6 +178,96 @@
     }
 
     button:hover{background:#1d4ed8}
+
+    .section-nav{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:14px;
+      margin:16px 0;
+      box-shadow:var(--shadow);
+    }
+
+    .section-nav h2{
+      margin:0 0 10px;
+      font-size:18px;
+      color:#1d4ed8;
+    }
+
+    .section-cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+      gap:10px;
+    }
+
+    .section-card{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      background:#fbfdff;
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:11px 12px;
+      transition:.15s ease;
+    }
+
+    .section-card:hover{
+      border-color:#93c5fd;
+      background:#f0f6ff;
+      transform:translateY(-1px);
+    }
+
+    .section-card .num{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      background:var(--blueSoft);
+      color:#1d4ed8;
+      font-weight:800;
+      font-size:13px;
+      margin-bottom:8px;
+    }
+
+    .section-card .name{
+      display:block;
+      font-size:13px;
+      font-weight:700;
+      line-height:1.35;
+    }
+
+    .toTop{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      width:46px;
+      height:46px;
+      border-radius:999px;
+      background:var(--blue);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      font-size:22px;
+      font-weight:900;
+      box-shadow:0 8px 22px rgba(37,99,235,.35);
+      z-index:999;
+    }
+
+    .toTop:hover{
+      background:#1d4ed8;
+    }
+
+    footer{
+      text-align:center;
+      padding:22px 16px 30px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
   </style>
 
   <script>
@@ -229,13 +319,25 @@
   </script>
 </head>
 
-<body>
+<body id="top">
 <header>
   <h1>Бастауыш сыныптарда математиканы оқыту әдістемесі</h1>
   <p>Кешенді тестілеуге дайындыққа арналған тапсырмалар</p>
 </header>
 
 <main>
+
+
+<section class="section-nav" aria-label="Бөлімдер навигациясы">
+  <h2>Бөлімдер</h2>
+  <div class="section-cards">
+    <a class="section-card" href="#section-1"><span class="num">1</span><span class="name">Жалпы ережелер</span></a>
+    <a class="section-card" href="#section-2"><span class="num">2</span><span class="name">Күтілетін нәтижелер</span></a>
+    <a class="section-card" href="#section-3"><span class="num">3</span><span class="name">Оқу жүктемесі</span></a>
+    <a class="section-card" href="#section-4"><span class="num">4</span><span class="name">Дайындық деңгейі</span></a>
+    <a class="section-card" href="#section-5"><span class="num">5</span><span class="name">Бағалау және оқу мерзімі</span></a>
+  </div>
+</section>
 
 <section class="section" id="section-1">
   <span class="tag">1-әдебиет · МЖМБС</span>
@@ -1538,6 +1640,8 @@
 <footer>
   © @elnazm_ln
 </footer>
+
+<a class="toTop" href="#top" aria-label="Жоғарыға өту">↑</a>
 
 </body>
 </html>
