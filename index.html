@@ -1,1 +1,1647 @@
-html
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бастауыш сыныптарда математиканы оқыту әдістемесі</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#172033;
+      --muted:#667085;
+      --blue:#2563eb;
+      --blueSoft:#eaf2ff;
+      --border:#e4e7ec;
+      --green:#16a34a;
+      --greenSoft:#eafaf0;
+      --red:#dc2626;
+      --redSoft:#fff1f1;
+      --shadow:0 8px 24px rgba(15,23,42,.08);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    header{
+      padding:28px 16px;
+      background:linear-gradient(135deg,#1d4ed8,#2563eb);
+      color:#fff;
+      text-align:center;
+    }
+
+    header h1{
+      margin:0 0 8px;
+      font-size:24px;
+      line-height:1.3;
+    }
+
+    header p{
+      margin:0;
+      opacity:.95;
+      font-size:15px;
+    }
+
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:16px;
+    }
+
+    .section{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:16px;
+      margin:16px 0;
+      box-shadow:var(--shadow);
+    }
+
+    .tag{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:999px;
+      background:var(--blueSoft);
+      color:#1d4ed8;
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    h2{
+      margin:0 0 8px;
+      font-size:21px;
+      color:#1d4ed8;
+    }
+
+    .intro{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .question{
+      margin-top:14px;
+      padding:15px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:#fbfdff;
+    }
+
+    .question h3{
+      margin:0 0 12px;
+      font-size:17px;
+      line-height:1.4;
+    }
+
+    .options{
+      display:grid;
+      gap:8px;
+    }
+
+    .option{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+      transition:.15s ease;
+      font-size:15px;
+    }
+
+    .option:hover{
+      border-color:#93c5fd;
+      background:#f0f6ff;
+    }
+
+    .option input{
+      margin-top:4px;
+      flex:0 0 auto;
+    }
+
+    .option.correct{
+      border-color:rgba(22,163,74,.55);
+      background:var(--greenSoft);
+    }
+
+    .option.wrong{
+      border-color:rgba(220,38,38,.45);
+      background:var(--redSoft);
+    }
+
+    .explanation{
+      display:none;
+      margin-top:12px;
+      padding:12px;
+      border-left:4px solid var(--blue);
+      border-radius:10px;
+      background:var(--blueSoft);
+      font-size:14px;
+    }
+
+    .explanation b{
+      color:#1d4ed8;
+    }
+
+    .result{
+      display:none;
+      margin-top:15px;
+      padding:13px;
+      border:1px solid #bfdbfe;
+      border-radius:14px;
+      background:var(--blueSoft);
+      color:#1e3a8a;
+      font-weight:700;
+    }
+
+    button{
+      width:100%;
+      margin-top:16px;
+      padding:13px 16px;
+      border:0;
+      border-radius:14px;
+      background:var(--blue);
+      color:#fff;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    button:hover{background:#1d4ed8}
+
+    .section-nav{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:14px;
+      margin:16px 0;
+      box-shadow:var(--shadow);
+    }
+
+    .section-nav h2{
+      margin:0 0 10px;
+      font-size:18px;
+      color:#1d4ed8;
+    }
+
+    .section-cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+      gap:10px;
+    }
+
+    .section-card{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      background:#fbfdff;
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:11px 12px;
+      transition:.15s ease;
+    }
+
+    .section-card:hover{
+      border-color:#93c5fd;
+      background:#f0f6ff;
+      transform:translateY(-1px);
+    }
+
+    .section-card .num{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      background:var(--blueSoft);
+      color:#1d4ed8;
+      font-weight:800;
+      font-size:13px;
+      margin-bottom:8px;
+    }
+
+    .section-card .name{
+      display:block;
+      font-size:13px;
+      font-weight:700;
+      line-height:1.35;
+    }
+
+    .toTop{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      width:46px;
+      height:46px;
+      border-radius:999px;
+      background:var(--blue);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      font-size:22px;
+      font-weight:900;
+      box-shadow:0 8px 22px rgba(37,99,235,.35);
+      z-index:999;
+    }
+
+    .toTop:hover{
+      background:#1d4ed8;
+    }
+
+    footer{
+      text-align:center;
+      padding:22px 16px 30px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+  </style>
+
+  <script>
+    function selectedValues(question){
+      return Array.from(question.querySelectorAll('input:checked')).map(i => i.value).sort();
+    }
+
+    function correctValues(question){
+      return question.dataset.answer.split(',').map(v => v.trim()).sort();
+    }
+
+    function sameArray(a,b){
+      return a.length === b.length && a.every((v,i) => v === b[i]);
+    }
+
+    function checkSection(sectionId,resultId){
+      const section = document.getElementById(sectionId);
+      const questions = section.querySelectorAll('.question');
+      let score = 0;
+
+      questions.forEach(question => {
+        const selected = selectedValues(question);
+        const correct = correctValues(question);
+
+        if(sameArray(selected, correct)){
+          score++;
+        }
+
+        question.querySelectorAll('.option').forEach(option => {
+          const input = option.querySelector('input');
+          option.classList.remove('correct','wrong');
+
+          if(correct.includes(input.value)){
+            option.classList.add('correct');
+          }
+
+          if(input.checked && !correct.includes(input.value)){
+            option.classList.add('wrong');
+          }
+        });
+
+        question.querySelector('.explanation').style.display = 'block';
+      });
+
+      const result = document.getElementById(resultId);
+      result.style.display = 'block';
+      result.textContent = 'Нәтиже: ' + score + ' / ' + questions.length + ' дұрыс';
+    }
+  </script>
+</head>
+
+<body id="top">
+<header>
+  <h1>Бастауыш сыныптарда математиканы оқыту әдістемесі</h1>
+  <p>Кешенді тестілеуге дайындыққа арналған тапсырмалар</p>
+</header>
+
+<main>
+
+
+<section class="section-nav" aria-label="Бөлімдер навигациясы">
+  <h2>Бөлімдер</h2>
+  <div class="section-cards">
+    <a class="section-card" href="#section-1"><span class="num">1</span><span class="name">Жалпы ережелер</span></a>
+    <a class="section-card" href="#section-2"><span class="num">2</span><span class="name">Күтілетін нәтижелер</span></a>
+    <a class="section-card" href="#section-3"><span class="num">3</span><span class="name">Оқу жүктемесі</span></a>
+    <a class="section-card" href="#section-4"><span class="num">4</span><span class="name">Дайындық деңгейі</span></a>
+    <a class="section-card" href="#section-5"><span class="num">5</span><span class="name">Бағалау және оқу мерзімі</span></a>
+  </div>
+</section>
+
+<section class="section" id="section-1">
+  <span class="tag">1-әдебиет · МЖМБС</span>
+  <h2>1-бөлім. Жалпы ережелер</h2>
+  <p class="intro">
+    Бұл бөлімде бастауыш білім берудің мемлекеттік жалпыға міндетті стандарты, базалық мазмұн,
+    бағалау, мониторинг, білім беру құндылықтары, оқу жоспарының компоненттері және оқытудан
+    күтілетін нәтижелер қарастырылады.
+  </p>
+
+  <div class="question" data-answer="A,D">
+    <h3>1. Бастауыш білім берудің мемлекеттік жалпыға міндетті стандарты айқындайтын мазмұндық талаптар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) бастауыш білім беру мазмұнына қойылатын талаптар</label>
+      <label class="option"><input type="checkbox" value="B"> B) білім беру құндылықтарын іріктеу өлшемдері</label>
+      <label class="option"><input type="checkbox" value="C"> C) оқу пәндері арасындағы байланыс түрлері</label>
+      <label class="option"><input type="checkbox" value="D"> D) білім алушылардың дайындық деңгейіне қойылатын талаптар</label>
+      <label class="option"><input type="checkbox" value="E"> E) оқыту әдістерін таңдау ұстанымдары</label>
+      <label class="option"><input type="checkbox" value="F"> F) оқу мақсаттарын құрастыру тәсілдері</label>
+      <label class="option"><input type="checkbox" value="G"> G) қалыптастырушы бағалауды өткізу кезеңдері</label>
+      <label class="option"><input type="checkbox" value="H"> H) оқу тапсырмаларын саралау жолдары</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Стандарт бастауыш білім беру мазмұнына және білім алушылардың дайындық деңгейіне қойылатын талаптарды айқындайды. Бұл екеуі білім мазмұны мен оқушының нәтижелік деңгейін көрсететін негізгі талаптар.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,F">
+    <h3>2. Бастауыш білім берудің мемлекеттік жалпыға міндетті стандарты айқындайтын көлемдік-мерзімдік талаптар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) бағалау критерийлерінің құрылымы</label>
+      <label class="option"><input type="checkbox" value="B"> B) оқу жүктемесінің ең жоғарғы көлемі</label>
+      <label class="option"><input type="checkbox" value="C"> C) оқу пәндерінің мазмұндық байланысы</label>
+      <label class="option"><input type="checkbox" value="D"> D) білім беру процесінің мониторингі</label>
+      <label class="option"><input type="checkbox" value="E"> E) білім алушы жетістігінің өлшеуіштері</label>
+      <label class="option"><input type="checkbox" value="F"> F) бастауыш білім берудің оқу мерзімі</label>
+      <label class="option"><input type="checkbox" value="G"> G) сабақтан тыс іс-әрекеттің мазмұны</label>
+      <label class="option"><input type="checkbox" value="H"> H) элективті курстың мақсаттық бағыты</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Оқу жүктемесінің ең жоғарғы көлемі мен оқу мерзімі стандартта айқындалатын көлемдік-мерзімдік талаптарға жатады. Олар білім беру процесінің уақыттық және жүктемелік шегін белгілейді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C">
+    <h3>3. Бастауыш білім берудің базалық мазмұнының мәні</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқу нәтижелерін күтілетін нәтижелермен салыстыру процесі</label>
+      <label class="option"><input type="checkbox" value="B"> B) білім беру процесіндегі өзгерістерді бақылау жүйесі</label>
+      <label class="option"><input type="checkbox" value="C"> C) міндетті бастауыш білім мазмұнының құрамы, құрылымы мен көлемі</label>
+      <label class="option"><input type="checkbox" value="D"> D) оқу жетістіктерін бағалауға негіз болатын өлшеуіштер</label>
+      <label class="option"><input type="checkbox" value="E"> E) оқу жүктемесінен тыс бос уақытты ұйымдастыру нысаны</label>
+      <label class="option"><input type="checkbox" value="F"> F) білім алушылар таңдауы бойынша оқытылатын курс</label>
+      <label class="option"><input type="checkbox" value="G"> G) пәндердің міндетті тізбесін айқындайтын компонент</label>
+      <label class="option"><input type="checkbox" value="H"> H) оқушының білімге деген қажеттілігіне сай айқындалатын бөлік</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім берудің базалық мазмұны — білім беру ұйымдарында оқып білуге міндетті бастауыш білім мазмұнының құрамы, құрылымы мен көлемі. Сондықтан дұрыс жауап — C.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,E">
+    <h3>4. Оқу жетістігін бағалауға тікелей қатысты ұғымдар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) бағалау</label>
+      <label class="option"><input type="checkbox" value="B"> B) білім беру саласы</label>
+      <label class="option"><input type="checkbox" value="C"> C) оқу жүктемесі</label>
+      <label class="option"><input type="checkbox" value="D"> D) сабақтан тыс іс-әрекет</label>
+      <label class="option"><input type="checkbox" value="E"> E) бағалау критерийлері</label>
+      <label class="option"><input type="checkbox" value="F"> F) білім беру құндылықтары</label>
+      <label class="option"><input type="checkbox" value="G"> G) үлгілік оқу жоспары</label>
+      <label class="option"><input type="checkbox" value="H"> H) элективті курс</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бағалау — нақты қол жеткізген оқу нәтижелерін күтілетін нәтижелермен салыстыру процесі. Бағалау критерийлері — оқу жетістігін бағалауға негіз болатын нақты өлшеуіштер.
+    </div>
+  </div>
+
+  <div class="question" data-answer="D">
+    <h3>5. Білім беру процесінің мониторингіне тән сипаттама</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқу пәндерінің міндетті және таңдау бөлігін айқындау</label>
+      <label class="option"><input type="checkbox" value="B"> B) оқушы жетістігін белгілі критерийлер арқылы салыстыру</label>
+      <label class="option"><input type="checkbox" value="C"> C) оқу жүктемесінен тыс әрекетті ұйымдастыру</label>
+      <label class="option"><input type="checkbox" value="D"> D) білім беру процесіндегі өзгерістерді жүйелі бақылау және талдау</label>
+      <label class="option"><input type="checkbox" value="E"> E) оқу пәндерінің тізбесін регламенттеу</label>
+      <label class="option"><input type="checkbox" value="F"> F) білім алушы таңдаған курстың мазмұнын кеңейту</label>
+      <label class="option"><input type="checkbox" value="G"> G) оқыту аяқталғандағы құзыреттіліктер жиынтығын сипаттау</label>
+      <label class="option"><input type="checkbox" value="H"> H) білім мазмұнын айқындайтын оқу мақсаттарын бағдарлау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Білім беру процесінің мониторингі білім беру процесінің жай-күйі мен нәтижелеріндегі өзгерістерді жүйелі бақылау, диагностикалау, талдау, бағалау және болжауды білдіреді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,H">
+    <h3>6. Үлгілік оқу жоспарының құрамдас компоненттері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) нәтижелік компонент</label>
+      <label class="option"><input type="checkbox" value="B"> B) инварианттық компонент</label>
+      <label class="option"><input type="checkbox" value="C"> C) бағалау компоненті</label>
+      <label class="option"><input type="checkbox" value="D"> D) мониторингтік компонент</label>
+      <label class="option"><input type="checkbox" value="E"> E) әдістемелік компонент</label>
+      <label class="option"><input type="checkbox" value="F"> F) мазмұндық компонент</label>
+      <label class="option"><input type="checkbox" value="G"> G) тәрбиелік компонент</label>
+      <label class="option"><input type="checkbox" value="H"> H) вариативтік компонент</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Үлгілік оқу жоспары оқу жүктемесінің инварианттық және вариативтік компоненттерінің көлемін айқындайды. Инварианттық компонент міндетті оқу пәндерін, ал вариативтік компонент білім алушылардың қажеттілігіне сәйкес айқындалатын бөлікті көрсетеді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,F">
+    <h3>7. Оқытудан күтілетін нәтижелердің мазмұны</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) білім алушының нені білетінін сипаттайды</label>
+      <label class="option"><input type="checkbox" value="B"> B) оқу пәндерінің апталық санын белгілейді</label>
+      <label class="option"><input type="checkbox" value="C"> C) элективті курстардың таңдалу тәртібін көрсетеді</label>
+      <label class="option"><input type="checkbox" value="D"> D) оқу кабинеттерінің жабдықталуын айқындайды</label>
+      <label class="option"><input type="checkbox" value="E"> E) сабақтан тыс уақытты ұйымдастыруды сипаттайды</label>
+      <label class="option"><input type="checkbox" value="F"> F) білім алушының нені түсініп, көрсете алатынын сипаттайды</label>
+      <label class="option"><input type="checkbox" value="G"> G) оқу жоспарының инварианттық бөлігін анықтайды</label>
+      <label class="option"><input type="checkbox" value="H"> H) бағалау өлшеуіштерінің атауын нақтылайды</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Оқытудан күтілетін нәтижелер оқыту аяқталғанда білім алушының нені біліп, түсініп, көрсете алатынын сипаттайтын құзыреттіліктер жиынтығын білдіреді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,G">
+    <h3>8. Формативті бағалаудың негізгі белгілері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқу кезеңі аяқталғаннан кейін қорытынды нәтиже шығарады</label>
+      <label class="option"><input type="checkbox" value="B"> B) білім мазмұнының құрылымы мен көлемін айқындайды</label>
+      <label class="option"><input type="checkbox" value="C"> C) сыныптағы күнделікті жұмыс барысында жүргізіледі</label>
+      <label class="option"><input type="checkbox" value="D"> D) оқу пәндерінің тізбесін регламенттейді</label>
+      <label class="option"><input type="checkbox" value="E"> E) білім алушылардың таңдауы бойынша курс ретінде алынады</label>
+      <label class="option"><input type="checkbox" value="F"> F) оқу жүктемесінен тыс бос уақытты ұйымдастырады</label>
+      <label class="option"><input type="checkbox" value="G"> G) оқушы мен мұғалім арасындағы жедел кері байланысты қамтамасыз етеді</label>
+      <label class="option"><input type="checkbox" value="H"> H) білім беру ұйымының түріне байланысты пәндерді қысқартады</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Формативті бағалау сыныптағы күнделікті жұмыс барысында жүргізіледі және оқыту кезінде білім алушы мен мұғалім арасындағы жедел кері байланысты қамтамасыз етеді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,D,H">
+    <h3>9. Бастауыш білім беру мазмұнында айқындалған базалық құндылықтар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) қазақстандық патриотизм мен азаматтық жауапкершілік</label>
+      <label class="option"><input type="checkbox" value="B"> B) пәндік бәсекелестік пен жеке басымдық</label>
+      <label class="option"><input type="checkbox" value="C"> C) нәтижені даралау мен оқшаулау</label>
+      <label class="option"><input type="checkbox" value="D"> D) құрмет</label>
+      <label class="option"><input type="checkbox" value="E"> E) бақылау мен қадағалауды күшейту</label>
+      <label class="option"><input type="checkbox" value="F"> F) оқу мазмұнын тарылту</label>
+      <label class="option"><input type="checkbox" value="G"> G) әлеуметтік салыстыру</label>
+      <label class="option"><input type="checkbox" value="H"> H) ынтымақтастық</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім беру мазмұнында қазақстандық патриотизм мен азаматтық жауапкершілік, құрмет және ынтымақтастық базалық құндылықтар ретінде айқындалған.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E,G">
+    <h3>10. Бастауыш білім беру мазмұнында көрсетілген базалық құндылықтар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқу әрекетін шектеу</label>
+      <label class="option"><input type="checkbox" value="B"> B) еңбек пен шығармашылық</label>
+      <label class="option"><input type="checkbox" value="C"> C) пәндік оқшаулану</label>
+      <label class="option"><input type="checkbox" value="D"> D) білімді механикалық қайталау</label>
+      <label class="option"><input type="checkbox" value="E"> E) ашықтық</label>
+      <label class="option"><input type="checkbox" value="F"> F) дайын үлгіні ғана орындау</label>
+      <label class="option"><input type="checkbox" value="G"> G) өмір бойы білім алу</label>
+      <label class="option"><input type="checkbox" value="H"> H) жеке әрекетті ғана басым ету</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Еңбек пен шығармашылық, ашықтық және өмір бойы білім алу бастауыш білім беру мазмұнында көрсетілген базалық құндылықтарға жатады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,C,F">
+    <h3>11. Бастауыш білім берудің мақсатына сәйкес кең ауқымды дағдылар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) білімді функционалдықпен және шығармашылықпен қолдана білу</label>
+      <label class="option"><input type="checkbox" value="B"> B) дайын жауапты өзгеріссіз есте сақтау</label>
+      <label class="option"><input type="checkbox" value="C"> C) сын тұрғысынан ойлау</label>
+      <label class="option"><input type="checkbox" value="D"> D) оқу әрекетін сыртқы бақылауға ғана бағындыру</label>
+      <label class="option"><input type="checkbox" value="E"> E) пәндік мазмұнды бір бағытта ғана қабылдау</label>
+      <label class="option"><input type="checkbox" value="F"> F) зерттеу жұмыстарын жүргізе білу</label>
+      <label class="option"><input type="checkbox" value="G"> G) тапсырманы тек үлгі бойынша көшіру</label>
+      <label class="option"><input type="checkbox" value="H"> H) жеке пікірді қолданбау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім берудің мақсаты білімді функционалдық және шығармашылық тұрғыда қолдану, сын тұрғысынан ойлау және зерттеу жұмыстарын жүргізу сияқты кең ауқымды дағдыларды қалыптастырумен байланысты.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,D,H">
+    <h3>12. Бастауыш білім берудің мақсатына кіретін кең ауқымды дағдылар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқу мазмұнын тек пән ішінде шектеу</label>
+      <label class="option"><input type="checkbox" value="B"> B) ақпараттық-коммуникациялық технологияларды қолдана білу</label>
+      <label class="option"><input type="checkbox" value="C"> C) оқу әрекетін тек жеке орындауға бағыттау</label>
+      <label class="option"><input type="checkbox" value="D"> D) коммуникацияның түрлі тәсілдерін меңгеру</label>
+      <label class="option"><input type="checkbox" value="E"> E) дайын ақпаратты талдаусыз қабылдау</label>
+      <label class="option"><input type="checkbox" value="F"> F) пәндер арасындағы байланысты әлсірету</label>
+      <label class="option"><input type="checkbox" value="G"> G) зерттеу әрекетін оқу процесінен бөлу</label>
+      <label class="option"><input type="checkbox" value="H"> H) топпен және жеке жұмыс істеу дағдылары</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Ақпараттық-коммуникациялық технологияларды қолдану, коммуникацияның түрлі тәсілдерін меңгеру, топпен және жеке жұмыс істеу бастауыш білім берудің мақсатына кіретін кең ауқымды дағдылар болып саналады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,E">
+    <h3>13. Бастауыш білім беру мазмұнын айқындауда ескерілетін аспектілер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқу мазмұнын өзгермейтін күйде сақтау</label>
+      <label class="option"><input type="checkbox" value="B"> B) пәндерді бір-бірінен толық оқшаулау</label>
+      <label class="option"><input type="checkbox" value="C"> C) заманауи қоғамның динамикалық сұраныстарына сәйкес болуы</label>
+      <label class="option"><input type="checkbox" value="D"> D) шығармашылық ойлауды шектеу қажеттілігі</label>
+      <label class="option"><input type="checkbox" value="E"> E) сын тұрғысынан, шығармашыл және позитивті ойлауды дамыту қажеттілігі</label>
+      <label class="option"><input type="checkbox" value="F"> F) оқу пәндері арасындағы ықпалдастықты азайту</label>
+      <label class="option"><input type="checkbox" value="G"> G) оқыту мен тәрбиелеуді бөлек қарастыру</label>
+      <label class="option"><input type="checkbox" value="H"> H) оқу нәтижелерін пән мазмұнынан бөлек анықтау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім беру мазмұны заманауи қоғамның сұраныстарына сәйкес болуы және сын тұрғысынан, шығармашыл, позитивті ойлауды дамыту қажеттілігін ескеруі тиіс.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,G">
+    <h3>14. Бастауыш білім беру мазмұнын айқындауда ескерілетін байланыс пен біртұтастық аспектілері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқу пәндері мазмұнының ықпалдасуын күшейту</label>
+      <label class="option"><input type="checkbox" value="B"> B) оқу пәндерін мазмұндық тұрғыдан оқшаулау</label>
+      <label class="option"><input type="checkbox" value="C"> C) тәрбиені оқыту мазмұнынан бөлек жүргізу</label>
+      <label class="option"><input type="checkbox" value="D"> D) пәндік білімді өмірлік қолданудан ажырату</label>
+      <label class="option"><input type="checkbox" value="E"> E) оқушы әрекетін тек бақылаумен шектеу</label>
+      <label class="option"><input type="checkbox" value="F"> F) оқу нәтижелерін құндылықтармен байланыстырмау</label>
+      <label class="option"><input type="checkbox" value="G"> G) оқытудың, тәрбие мен дамытудың біртұтастығын қамтамасыз ету</label>
+      <label class="option"><input type="checkbox" value="H"> H) білім мазмұнын жас ерекшелігінен бөлек жоспарлау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім беру мазмұны оқу пәндері мазмұнының ықпалдасуын күшейтуді және оқытудың, тәрбие мен дамытудың біртұтастығын қамтамасыз етуді ескере отырып айқындалады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E">
+    <h3>15. Үштілді білім беруді іске асыру жолдары</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) тілдерді тек ауызша қарым-қатынаста қолдану</label>
+      <label class="option"><input type="checkbox" value="B"> B) қазақ, орыс және шетел тілдерінің деңгейлік меңгерілуін қамтамасыз ету</label>
+      <label class="option"><input type="checkbox" value="C"> C) сабақтан тыс жұмысты бір тілмен ғана шектеу</label>
+      <label class="option"><input type="checkbox" value="D"> D) тілдік пәндерді пәндік мазмұннан бөлек қарастыру</label>
+      <label class="option"><input type="checkbox" value="E"> E) сабақтан тыс жұмысты қазақ, орыс және шетел тілдерінде ұйымдастыру</label>
+      <label class="option"><input type="checkbox" value="F"> F) тілдік дағдыларды тек жазылым арқылы қалыптастыру</label>
+      <label class="option"><input type="checkbox" value="G"> G) көптілді тұлғаны қалыптастыруды оқу процесінен бөлу</label>
+      <label class="option"><input type="checkbox" value="H"> H) тілдерді деңгейлік меңгеруді бағалаусыз қалдыру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Үштілді білім беру қазақ, орыс және шетел тілдерінің деңгейлік меңгерілуін қамтамасыз ету және сабақтан тыс жұмысты осы үш тілде ұйымдастыру арқылы іске асырылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,H">
+    <h3>16. Бастауыш білімдегі “Математика және информатика” білім беру саласының пәндері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) Математика</label>
+      <label class="option"><input type="checkbox" value="B"> B) Алгебра</label>
+      <label class="option"><input type="checkbox" value="C"> C) Геометрия</label>
+      <label class="option"><input type="checkbox" value="D"> D) Информатика</label>
+      <label class="option"><input type="checkbox" value="E"> E) Жаратылыстану</label>
+      <label class="option"><input type="checkbox" value="F"> F) Дүниетану</label>
+      <label class="option"><input type="checkbox" value="G"> G) Көркем еңбек</label>
+      <label class="option"><input type="checkbox" value="H"> H) Цифрлық сауаттылық</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім деңгейінде “Математика және информатика” білім беру саласының мазмұны “Математика” және “Цифрлық сауаттылық” оқу пәндерінде іске асырылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,D,F">
+    <h3>17. “Математика және информатика” білім беру саласы мазмұнының математикалық бағыты</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) тілдік мәтіндерді мәнерлеп оқу дағдыларын дамыту</label>
+      <label class="option"><input type="checkbox" value="B"> B) бастапқы математикалық білімді қалыптастыру</label>
+      <label class="option"><input type="checkbox" value="C"> C) тарихи оқиғаларды кезеңдер бойынша сипаттау</label>
+      <label class="option"><input type="checkbox" value="D"> D) ауызша және жазбаша есептеу алгоритмдерін игеру</label>
+      <label class="option"><input type="checkbox" value="E"> E) табиғат құбылыстарын тәжірибе арқылы бақылау</label>
+      <label class="option"><input type="checkbox" value="F"> F) есептер шығарудың жалпы амалдарын меңгеру</label>
+      <label class="option"><input type="checkbox" value="G"> G) көркем бейнелерді композиция арқылы құрастыру</label>
+      <label class="option"><input type="checkbox" value="H"> H) қоғамдық қатынастарды салыстырмалы талдау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бұл білім беру саласы бастапқы математикалық білімді қалыптастыруға, ауызша және жазбаша есептеу алгоритмдерін игеруге, есептер шығарудың жалпы амалдарын меңгеруге бағытталған.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,E,G">
+    <h3>18. “Математика және информатика” білім беру саласында қалыптастырылатын жұмыс түрлері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) кестелермен жұмыс істеу</label>
+      <label class="option"><input type="checkbox" value="B"> B) көркем мәтінді рөлге бөліп оқу</label>
+      <label class="option"><input type="checkbox" value="C"> C) музыкалық ырғақты орындау</label>
+      <label class="option"><input type="checkbox" value="D"> D) табиғат нысандарын маусым бойынша бақылау</label>
+      <label class="option"><input type="checkbox" value="E"> E) схемалармен жұмыс істеу</label>
+      <label class="option"><input type="checkbox" value="F"> F) тарихи тұлғаларды сипаттау</label>
+      <label class="option"><input type="checkbox" value="G"> G) графикалармен және диаграммалармен жұмыс істеу</label>
+      <label class="option"><input type="checkbox" value="H"> H) әдеби шығарма кейіпкерлерін талдау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> “Математика және информатика” білім беру саласы кестелермен, схемалармен, графикалармен және диаграммалармен жұмыс істеудің қарапайым әдістерін қолдануды көздейді.
+    </div>
+  </div>
+
+  <div class="result" id="result-section-1"></div>
+  <button onclick="checkSection('section-1','result-section-1')">Нәтижені көрсету</button>
+</section>
+  <section class="section" id="section-2">
+  <span class="tag">1-әдебиет · МЖМБС</span>
+  <h2>2-бөлім. Математика және информатика білім беру саласы бойынша күтілетін нәтижелер</h2>
+  <p class="intro">
+    Бұл бөлімде бастауыш білім беру аяқталғанда білім алушы меңгеруі тиіс математикалық ұғымдар,
+    сандар мен өлшемдер, алгебра элементтері, геометрия элементтері, жиындар, логикалық есептер,
+    математикалық модельдеу және деректермен жұмыс істеу нәтижелері қарастырылады.
+  </p>
+
+  <div class="question" data-answer="A,C,F">
+    <h3>19. Бастауыш білім соңында білім алушы мәнін білуі тиіс сандық ұғымдар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) цифр</label>
+      <label class="option"><input type="checkbox" value="B"> B) теріс сан</label>
+      <label class="option"><input type="checkbox" value="C"> C) сан</label>
+      <label class="option"><input type="checkbox" value="D"> D) нақты сан</label>
+      <label class="option"><input type="checkbox" value="E"> E) иррационал сан</label>
+      <label class="option"><input type="checkbox" value="F"> F) координаталық сәуле</label>
+      <label class="option"><input type="checkbox" value="G"> G) комплекс сан</label>
+      <label class="option"><input type="checkbox" value="H"> H) сандық аралық</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім беру соңында білім алушы “цифр”, “сан”, “координаталық сәуле” ұғымдарының мәнін білуі тиіс. Бұл ұғымдар сандар және олардың сан сәулесіндегі орналасуын түсінуге негіз болады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,D,H">
+    <h3>20. Бөлшек және пайызға қатысты бастауыш деңгейде меңгерілетін ұғымдар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) периодты бөлшек</label>
+      <label class="option"><input type="checkbox" value="B"> B) санның үлесі</label>
+      <label class="option"><input type="checkbox" value="C"> C) ондық логарифм</label>
+      <label class="option"><input type="checkbox" value="D"> D) жай бөлшек</label>
+      <label class="option"><input type="checkbox" value="E"> E) шексіз бөлшек</label>
+      <label class="option"><input type="checkbox" value="F"> F) бөлшек көрсеткіш</label>
+      <label class="option"><input type="checkbox" value="G"> G) рационал өрнек</label>
+      <label class="option"><input type="checkbox" value="H"> H) пайыз</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Санның үлесі, жай бөлшек және пайыз бастауыш математикада меңгерілетін негізгі ұғымдарға жатады. Олар үлесті, бөлшекті және санның пайыздық мәнін түсінуге көмектеседі.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,E,G">
+    <h3>21. Алгебра элементтеріне қатысты бастауыш математикалық ұғымдар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) санды өрнек</label>
+      <label class="option"><input type="checkbox" value="B"> B) квадрат теңдеу</label>
+      <label class="option"><input type="checkbox" value="C"> C) сызықтық функция</label>
+      <label class="option"><input type="checkbox" value="D"> D) теңдеулер жүйесі</label>
+      <label class="option"><input type="checkbox" value="E"> E) әріпті өрнек</label>
+      <label class="option"><input type="checkbox" value="F"> F) айнымалы функция</label>
+      <label class="option"><input type="checkbox" value="G"> G) теңдік</label>
+      <label class="option"><input type="checkbox" value="H"> H) квадраттық өрнек</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Санды өрнек, әріпті өрнек және теңдік бастауыш сыныптағы алгебра элементтерінің негізін құрайды. Бұл ұғымдар өрнек құру, оқу, жазу және мәнін табу дағдыларымен байланысты.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C">
+    <h3>22. Теңдікпен қатар бастауыш математикада меңгерілетін салыстыру ұғымы</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) теңдеу</label>
+      <label class="option"><input type="checkbox" value="B"> B) өрнек</label>
+      <label class="option"><input type="checkbox" value="C"> C) теңсіздік</label>
+      <label class="option"><input type="checkbox" value="D"> D) қосынды</label>
+      <label class="option"><input type="checkbox" value="E"> E) айырма</label>
+      <label class="option"><input type="checkbox" value="F"> F) көбейтінді</label>
+      <label class="option"><input type="checkbox" value="G"> G) бөлінді</label>
+      <label class="option"><input type="checkbox" value="H"> H) айнымалы</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Теңдікпен қатар теңсіздік ұғымы да бастауыш математикада меңгеріледі. Теңсіздік сандарды, өрнектерді және шамаларды салыстыруда қолданылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,D,H">
+    <h3>23. Геометрия элементтері бойынша білім алушы білуі тиіс мазмұн</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) жазық геометриялық фигуралардың түрлері</label>
+      <label class="option"><input type="checkbox" value="B"> B) геометриялық фигуралардың ұқсастық коэффициенті</label>
+      <label class="option"><input type="checkbox" value="C"> C) көпбұрыштардың сыртқы бұрыштарының қосындысы</label>
+      <label class="option"><input type="checkbox" value="D"> D) кеңістік геометриялық фигуралардың түрлері</label>
+      <label class="option"><input type="checkbox" value="E"> E) үшбұрыштардың теңдік белгілері</label>
+      <label class="option"><input type="checkbox" value="F"> F) шеңберге жүргізілген жанама қасиеті</label>
+      <label class="option"><input type="checkbox" value="G"> G) көпжақтардың қима жазықтықтары</label>
+      <label class="option"><input type="checkbox" value="H"> H) геометриялық фигуралардың элементтері</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім беру аяқталғанда білім алушы жазық және кеңістік геометриялық фигуралардың түрлерін, сондай-ақ олардың элементтерін білуі тиіс.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,F">
+    <h3>24. Периметр мен ауданға қатысты бастауыш деңгейде меңгерілетін формулалар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) шеңбер ұзындығын есептеу формуласы</label>
+      <label class="option"><input type="checkbox" value="B"> B) шаршы периметрін есептеу формуласы</label>
+      <label class="option"><input type="checkbox" value="C"> C) үшбұрыш медианасын есептеу формуласы</label>
+      <label class="option"><input type="checkbox" value="D"> D) трапеция орта сызығын есептеу формуласы</label>
+      <label class="option"><input type="checkbox" value="E"> E) ромб диагоналін есептеу формуласы</label>
+      <label class="option"><input type="checkbox" value="F"> F) тік төртбұрыш ауданын есептеу формуласы</label>
+      <label class="option"><input type="checkbox" value="G"> G) параллелограмм биіктігін есептеу формуласы</label>
+      <label class="option"><input type="checkbox" value="H"> H) көпбұрыш бұрыштарының қосындысын есептеу формуласы</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш деңгейде шаршының периметрін және тік төртбұрыштың ауданын есептеу формулалары меңгеріледі. Бұл формулалар фигура өлшемдерімен жұмыс істеуге негіз болады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C">
+    <h3>25. Есеп. Қабырғасы 6 см шаршының периметрін табыңыз</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) 12 см</label>
+      <label class="option"><input type="checkbox" value="B"> B) 18 см</label>
+      <label class="option"><input type="checkbox" value="C"> C) 24 см</label>
+      <label class="option"><input type="checkbox" value="D"> D) 30 см</label>
+      <label class="option"><input type="checkbox" value="E"> E) 36 см</label>
+      <label class="option"><input type="checkbox" value="F"> F) 42 см</label>
+      <label class="option"><input type="checkbox" value="G"> G) 48 см</label>
+      <label class="option"><input type="checkbox" value="H"> H) 54 см</label>
+    </div>
+    <div class="explanation">
+      <b>Формула:</b> P = 4 · a. <br>
+      <b>Шешуі:</b> 1-қадам: шаршының барлық қабырғалары тең. 2-қадам: a = 6 см. 3-қадам: P = 4 · 6 = 24 см. <br>
+      <b>Қорытынды:</b> шаршының периметрі 24 см.
+    </div>
+  </div>
+
+  <div class="question" data-answer="D">
+    <h3>26. Есеп. Ұзындығы 8 см, ені 5 см тік төртбұрыштың ауданын табыңыз</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) 13 см²</label>
+      <label class="option"><input type="checkbox" value="B"> B) 18 см²</label>
+      <label class="option"><input type="checkbox" value="C"> C) 30 см²</label>
+      <label class="option"><input type="checkbox" value="D"> D) 40 см²</label>
+      <label class="option"><input type="checkbox" value="E"> E) 45 см²</label>
+      <label class="option"><input type="checkbox" value="F"> F) 50 см²</label>
+      <label class="option"><input type="checkbox" value="G"> G) 56 см²</label>
+      <label class="option"><input type="checkbox" value="H"> H) 64 см²</label>
+    </div>
+    <div class="explanation">
+      <b>Формула:</b> S = a · b. <br>
+      <b>Шешуі:</b> 1-қадам: ұзындығы 8 см, ені 5 см. 2-қадам: S = 8 · 5. 3-қадам: S = 40 см². <br>
+      <b>Қорытынды:</b> тік төртбұрыштың ауданы 40 см².
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,E,H">
+    <h3>27. Сандар және өлшемдер бойынша қолданылатын біліктер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) натурал сандармен ауызша есептеу амалдарын қолдану</label>
+      <label class="option"><input type="checkbox" value="B"> B) рационал бөлшектерді түрлендіру тәсілдерін қолдану</label>
+      <label class="option"><input type="checkbox" value="C"> C) дәрежелі өрнектерді ықшамдау ережелерін қолдану</label>
+      <label class="option"><input type="checkbox" value="D"> D) квадрат түбірі бар өрнектерді есептеу тәсілдерін қолдану</label>
+      <label class="option"><input type="checkbox" value="E"> E) натурал сандармен жазбаша есептеу амалдарын қолдану</label>
+      <label class="option"><input type="checkbox" value="F"> F) алгебралық бөлшектерді қысқарту тәсілдерін қолдану</label>
+      <label class="option"><input type="checkbox" value="G"> G) пропорция мүшелерін түрлендіру ережелерін қолдану</label>
+      <label class="option"><input type="checkbox" value="H"> H) шамаларды өлшеу құралдарын қолдану</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Білім алушы натурал сандармен ауызша және жазбаша есептеу амалдарын, сондай-ақ шамаларды өлшеу құралдарын қолдана алуы тиіс.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,D,G">
+    <h3>28. Шамалардың стандартты және стандартты емес өлшем бірліктері қолданылатын шамалар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) бұрыш</label>
+      <label class="option"><input type="checkbox" value="B"> B) ұзындық</label>
+      <label class="option"><input type="checkbox" value="C"> C) жылдамдық</label>
+      <label class="option"><input type="checkbox" value="D"> D) аудан</label>
+      <label class="option"><input type="checkbox" value="E"> E) температура</label>
+      <label class="option"><input type="checkbox" value="F"> F) тығыздық</label>
+      <label class="option"><input type="checkbox" value="G"> G) масса</label>
+      <label class="option"><input type="checkbox" value="H"> H) қысым</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш деңгейде ұзындық, аудан, көлем, масса, уақыт сияқты шамалардың стандартты және стандартты емес өлшем бірліктері қолданылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,F">
+    <h3>29. Жиын және логика элементтері бойынша меңгерілетін операциялар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) жиындардың қиылысуы</label>
+      <label class="option"><input type="checkbox" value="B"> B) жиындардың толықтауышы</label>
+      <label class="option"><input type="checkbox" value="C"> C) жиындардың декарттық көбейтіндісі</label>
+      <label class="option"><input type="checkbox" value="D"> D) жиындардың айырмасы</label>
+      <label class="option"><input type="checkbox" value="E"> E) жиындардың дәрежелік жиыны</label>
+      <label class="option"><input type="checkbox" value="F"> F) жиындардың бірігуі</label>
+      <label class="option"><input type="checkbox" value="G"> G) жиындардың симметриялық айырмасы</label>
+      <label class="option"><input type="checkbox" value="H"> H) жиындардың реттелген жұбы</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш деңгейде жиындардың “қиылысуы” және “бірігуі” операцияларының мағынасы меңгеріледі. Бұл жиындар арасындағы байланысты түсінуге көмектеседі.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C">
+    <h3>30. Жиын элементтері арасындағы қатынастарды көрсетуге қолданылатын диаграмма</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) бағандық диаграмма</label>
+      <label class="option"><input type="checkbox" value="B"> B) сызықтық диаграмма</label>
+      <label class="option"><input type="checkbox" value="C"> C) Эйлер-Венн диаграммасы</label>
+      <label class="option"><input type="checkbox" value="D"> D) дөңгелек диаграмма</label>
+      <label class="option"><input type="checkbox" value="E"> E) координаталық диаграмма</label>
+      <label class="option"><input type="checkbox" value="F"> F) сандық диаграмма</label>
+      <label class="option"><input type="checkbox" value="G"> G) өлшемдік диаграмма</label>
+      <label class="option"><input type="checkbox" value="H"> H) салыстырмалы диаграмма</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Жиын элементтері арасындағы қатынастарды көрсету үшін Эйлер-Венн диаграммасы қолданылады. Ол жиындардың қиылысуы мен бірігуін көрнекі түрде бейнелейді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E,G">
+    <h3>31. Математикалық модельдеуге қатысты қолданылатын құралдар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) есеп шартының ауызша баяндауы</label>
+      <label class="option"><input type="checkbox" value="B"> B) есеп шартының математикалық тілі</label>
+      <label class="option"><input type="checkbox" value="C"> C) есеп шартының мәтіндік қайталауы</label>
+      <label class="option"><input type="checkbox" value="D"> D) есеп шартының сөздік сипаттамасы</label>
+      <label class="option"><input type="checkbox" value="E"> E) есеп шартының графикалық моделі</label>
+      <label class="option"><input type="checkbox" value="F"> F) есеп шартының қысқа түсіндірмесі</label>
+      <label class="option"><input type="checkbox" value="G"> G) есеп шартының сызба түріндегі жазбасы</label>
+      <label class="option"><input type="checkbox" value="H"> H) есеп шартының қарапайым оқылуы</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Есеп шығаруда математикалық тіл, графикалық модель және сызба түріндегі жазба қолданылады. Олар есеп мазмұнын ықшамдап, шешу жолын түсіндіруге көмектеседі.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,D,H">
+    <h3>32. Талдау әрекетіне жататын математикалық мазмұн</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) ауызша және жазбаша санаудың рационалды тәсілдері</label>
+      <label class="option"><input type="checkbox" value="B"> B) ауызша және жазбаша санаудың ұзақ тәсілдері</label>
+      <label class="option"><input type="checkbox" value="C"> C) ауызша және жазбаша санаудың кездейсоқ тәсілдері</label>
+      <label class="option"><input type="checkbox" value="D"> D) геометриялық фигуралардың ерекшеліктері</label>
+      <label class="option"><input type="checkbox" value="E"> E) геометриялық фигуралардың атаулары ғана</label>
+      <label class="option"><input type="checkbox" value="F"> F) геометриялық фигуралардың сыртқы түсі</label>
+      <label class="option"><input type="checkbox" value="G"> G) өрнектердің жазылу реті ғана</label>
+      <label class="option"><input type="checkbox" value="H"> H) сандық және айнымалысы бар өрнектерді салыстыру нәтижесі</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Талдау әрекетінде санаудың рационалды тәсілдері, геометриялық фигуралардың ерекшеліктері және сандық немесе айнымалысы бар өрнектерді салыстыру нәтижесі қарастырылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E">
+    <h3>33. Логикалық және комбинаторикалық бағыттағы талдау мазмұны</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) тізбектің бірінші элементін көшіру</label>
+      <label class="option"><input type="checkbox" value="B"> B) тізбектің жетіспейтін элементтерін табу</label>
+      <label class="option"><input type="checkbox" value="C"> C) тізбектің барлық элементін жаттау</label>
+      <label class="option"><input type="checkbox" value="D"> D) тізбектің сыртқы жазылуын өзгерту</label>
+      <label class="option"><input type="checkbox" value="E"> E) күрделі емес комбинаторикалық есептерді талдау</label>
+      <label class="option"><input type="checkbox" value="F"> F) күрделі емес комбинаторикалық есептерді көшіріп жазу</label>
+      <label class="option"><input type="checkbox" value="G"> G) күрделі емес комбинаторикалық есептерді атауымен тану</label>
+      <label class="option"><input type="checkbox" value="H"> H) күрделі емес комбинаторикалық есептерді мәтінсіз беру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Тізбектің жетіспейтін элементтерін табу және күрделі емес комбинаторикалық есептерді талдау логикалық ойлау мен заңдылықты анықтауға бағытталған.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,F,H">
+    <h3>34. Құрастыру әрекетіне қатысты математикалық нәтижелер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) шамалар арасындағы тәуелділікті атау</label>
+      <label class="option"><input type="checkbox" value="B"> B) шамалар арасындағы тәуелділікті жаттау</label>
+      <label class="option"><input type="checkbox" value="C"> C) шамалар арасындағы тәуелділіктің математикалық моделін құрастыру</label>
+      <label class="option"><input type="checkbox" value="D"> D) ұсынылған мәліметтерді өзгеріссіз көшіру</label>
+      <label class="option"><input type="checkbox" value="E"> E) ұсынылған мәліметтерді ретсіз орналастыру</label>
+      <label class="option"><input type="checkbox" value="F"> F) ұсынылған мәліметтер бойынша есеп құрастыру</label>
+      <label class="option"><input type="checkbox" value="G"> G) берілген заңдылықтарды дайын күйінде оқу</label>
+      <label class="option"><input type="checkbox" value="H"> H) берілген заңдылықтар бойынша тізбек құрастыру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Құрастыру әрекеті шамалар арасындағы тәуелділіктің математикалық моделін жасау, берілген мәліметтер бойынша есеп құрастыру және заңдылық бойынша тізбек құрастырумен байланысты.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,G">
+    <h3>35. Модельдеу нәтижесіне жататын әрекеттер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) нақты нысандардың бейнелер түріндегі қарапайым модельдерін құрастыру</label>
+      <label class="option"><input type="checkbox" value="B"> B) нақты нысандардың атаулар түріндегі қарапайым тізімін жасау</label>
+      <label class="option"><input type="checkbox" value="C"> C) нақты нысандардың өлшемдерін ретсіз жазу</label>
+      <label class="option"><input type="checkbox" value="D"> D) нақты нысандардың сыртқы белгілерін ғана атау</label>
+      <label class="option"><input type="checkbox" value="E"> E) нақты процестердің мәтіндік сипаттамасын жаттау</label>
+      <label class="option"><input type="checkbox" value="F"> F) нақты процестердің атауын ғана анықтау</label>
+      <label class="option"><input type="checkbox" value="G"> G) нақты процестердің сызбалар түріндегі қарапайым модельдерін құрастыру</label>
+      <label class="option"><input type="checkbox" value="H"> H) нақты процестердің сандық мәндерін бөлек жазу</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Математикалық модельдеу нақты нысандар мен процестерді бейне немесе сызба түрінде қарапайым модельге айналдырумен байланысты.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E,H">
+    <h3>36. Бағалау әрекетіне жататын математикалық нәтижелер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) өлшем нәтижелерін көшіріп жазу</label>
+      <label class="option"><input type="checkbox" value="B"> B) өлшем нәтижелерін бағалау</label>
+      <label class="option"><input type="checkbox" value="C"> C) өлшем нәтижелерін атаусыз қалдыру</label>
+      <label class="option"><input type="checkbox" value="D"> D) қарапайым математикалық тұжырымдарды қайталау</label>
+      <label class="option"><input type="checkbox" value="E"> E) қарапайым математикалық тұжырымдардың ақиқаттылығын бағалау</label>
+      <label class="option"><input type="checkbox" value="F"> F) қарапайым математикалық тұжырымдарды ретсіз орналастыру</label>
+      <label class="option"><input type="checkbox" value="G"> G) графика, кесте, диаграммадағы деректерді көшіру</label>
+      <label class="option"><input type="checkbox" value="H"> H) графика, кесте, диаграмма түрінде берілген деректерді бағалау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бағалау әрекеті өлшем нәтижелерін, қарапайым математикалық тұжырымдардың ақиқаттылығын немесе жалғандығын, сондай-ақ графика, кесте, диаграммадағы деректерді бағалаумен байланысты.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C">
+    <h3>37. Есеп. 3, 6, 9, 12, ... тізбегіндегі келесі санды табыңыз</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) 13</label>
+      <label class="option"><input type="checkbox" value="B"> B) 14</label>
+      <label class="option"><input type="checkbox" value="C"> C) 15</label>
+      <label class="option"><input type="checkbox" value="D"> D) 16</label>
+      <label class="option"><input type="checkbox" value="E"> E) 17</label>
+      <label class="option"><input type="checkbox" value="F"> F) 18</label>
+      <label class="option"><input type="checkbox" value="G"> G) 21</label>
+      <label class="option"><input type="checkbox" value="H"> H) 24</label>
+    </div>
+    <div class="explanation">
+      <b>Шешуі:</b> 1-қадам: тізбек 3-ке артып отыр: 3, 6, 9, 12. 2-қадам: келесі санды табамыз: 12 + 3 = 15. <br>
+      <b>Қорытынды:</b> тізбектің келесі саны — 15.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,F,H">
+    <h3>38. Математикалық мазмұнда қолданылатын деректерді ұсыну түрлері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) кесте</label>
+      <label class="option"><input type="checkbox" value="B"> B) сандық өрнек</label>
+      <label class="option"><input type="checkbox" value="C"> C) әріпті өрнек</label>
+      <label class="option"><input type="checkbox" value="D"> D) теңсіздік</label>
+      <label class="option"><input type="checkbox" value="E"> E) теңдік</label>
+      <label class="option"><input type="checkbox" value="F"> F) графика</label>
+      <label class="option"><input type="checkbox" value="G"> G) формула</label>
+      <label class="option"><input type="checkbox" value="H"> H) диаграмма</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Математикада деректер кесте, графика және диаграмма түрінде берілуі мүмкін. Бұл түрлер деректерді түсіндіру, салыстыру және бағалау үшін қолданылады.
+    </div>
+  </div>
+
+  <div class="result" id="result-section-2"></div>
+  <button onclick="checkSection('section-2','result-section-2')">Нәтижені көрсету</button>
+</section>
+  <section class="section" id="section-3">
+  <span class="tag">1-әдебиет · МЖМБС</span>
+  <h2>3-бөлім. Білім алушылардың оқу жүктемесінің ең жоғары көлеміне қойылатын талаптар</h2>
+  <p class="intro">
+    Бұл бөлімде бастауыш мектептегі апталық оқу жүктемесінің ең жоғары көлемі,
+    инварианттық және вариативтік компоненттер, сыныптар бойынша оқу жүктемесінің
+    белгіленуі және сыныпты топтарға бөлу шарттары қарастырылады.
+  </p>
+
+  <div class="question" data-answer="D">
+    <h3>39. Бастауыш мектептегі білім алушылардың апталық оқу жүктемесінің ең жоғары көлемі</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) 24 сағаттан аспайды</label>
+      <label class="option"><input type="checkbox" value="B"> B) 25 сағаттан аспайды</label>
+      <label class="option"><input type="checkbox" value="C"> C) 28 сағаттан аспайды</label>
+      <label class="option"><input type="checkbox" value="D"> D) 29 сағаттан аспайды</label>
+      <label class="option"><input type="checkbox" value="E"> E) 30 сағаттан аспайды</label>
+      <label class="option"><input type="checkbox" value="F"> F) 32 сағаттан аспайды</label>
+      <label class="option"><input type="checkbox" value="G"> G) 34 сағаттан аспайды</label>
+      <label class="option"><input type="checkbox" value="H"> H) 36 сағаттан аспайды</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш мектептегі білім алушылардың апталық оқу жүктемесінің ең жоғары көлемі 29 сағаттан аспауы тиіс. Бұл оқу жүктемесінің шекті көлемін көрсетеді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,F">
+    <h3>40. Білім алушылардың оқу жүктемесінің жалпы көлемін құрайтын компоненттер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) мазмұндық компонент</label>
+      <label class="option"><input type="checkbox" value="B"> B) инварианттық компонент</label>
+      <label class="option"><input type="checkbox" value="C"> C) нәтижелік компонент</label>
+      <label class="option"><input type="checkbox" value="D"> D) бағалау компоненті</label>
+      <label class="option"><input type="checkbox" value="E"> E) әдістемелік компонент</label>
+      <label class="option"><input type="checkbox" value="F"> F) вариативтік компонент</label>
+      <label class="option"><input type="checkbox" value="G"> G) бақылау компоненті</label>
+      <label class="option"><input type="checkbox" value="H"> H) диагностикалық компонент</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Оқу жүктемесінің жалпы көлемі инварианттық және вариативтік компоненттерден тұрады. Инварианттық бөлік міндетті оқу пәндерін, вариативтік бөлік білім алушы қажеттілігіне сай айқындалатын бөлікті қамтиды.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,E">
+    <h3>41. Үлгілік оқу жоспарында белгіленетін оқу жүктемесінің түрлері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) сыныптар бойынша апталық оқу жүктемесі</label>
+      <label class="option"><input type="checkbox" value="B"> B) бөлімдер бойынша бағалау жүктемесі</label>
+      <label class="option"><input type="checkbox" value="C"> C) пәндер бойынша әдістемелік жүктеме</label>
+      <label class="option"><input type="checkbox" value="D"> D) оқушылар бойынша жеке бақылау жүктемесі</label>
+      <label class="option"><input type="checkbox" value="E"> E) сыныптар бойынша жылдық оқу жүктемесі</label>
+      <label class="option"><input type="checkbox" value="F"> F) сабақтар бойынша диагностикалық жүктеме</label>
+      <label class="option"><input type="checkbox" value="G"> G) тапсырмалар бойынша күрделілік жүктемесі</label>
+      <label class="option"><input type="checkbox" value="H"> H) нәтижелер бойынша салыстыру жүктемесі</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Үлгілік оқу жоспарында сыныптар бойынша апталық және жылдық оқу жүктемесі белгіленеді. Бұл оқу уақытын сынып деңгейлері бойынша реттеуге мүмкіндік береді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,H">
+    <h3>42. Қалалық және ауылдық жалпы білім беретін ұйымдарда сыныпты екі топқа бөлу шарттары</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) қалалық жерде 20 және одан артық, ауылдық жерде 16 және одан артық білім алушы болғанда</label>
+      <label class="option"><input type="checkbox" value="B"> B) қалалық жерде 22 және одан артық, ауылдық жерде 18 және одан артық білім алушы болғанда</label>
+      <label class="option"><input type="checkbox" value="C"> C) қалалық жерде 24 және одан артық білім алушы болғанда</label>
+      <label class="option"><input type="checkbox" value="D"> D) қалалық жерде 25 және одан артық білім алушы болғанда</label>
+      <label class="option"><input type="checkbox" value="E"> E) ауылдық жерде 18 және одан артық білім алушы болғанда</label>
+      <label class="option"><input type="checkbox" value="F"> F) ауылдық жерде 19 және одан артық білім алушы болғанда</label>
+      <label class="option"><input type="checkbox" value="G"> G) ауылдық жерде 21 және одан артық білім алушы болғанда</label>
+      <label class="option"><input type="checkbox" value="H"> H) ауылдық жерде 20 және одан артық білім алушы болғанда</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Қалалық жалпы білім беретін ұйымдарда сыныпта 24 және одан артық, ауылдық жерде 20 және одан артық білім алушы болғанда сыныпты екі топқа бөлуге болады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,D,G">
+    <h3>43. Сыныпты екі топқа бөлуге болатын оқу пәндері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқыту қазақ тілінде жүргізілмейтін сыныптардағы қазақ тілі</label>
+      <label class="option"><input type="checkbox" value="B"> B) оқыту қазақ тілінде жүргізілетін сыныптардағы қазақ тілі</label>
+      <label class="option"><input type="checkbox" value="C"> C) оқыту орыс тілінде жүргізілетін сыныптардағы орыс тілі</label>
+      <label class="option"><input type="checkbox" value="D"> D) оқыту орыс тілінде жүргізілмейтін сыныптардағы орыс тілі</label>
+      <label class="option"><input type="checkbox" value="E"> E) оқыту шетел тілінде жүргізілетін сыныптардағы ана тілі</label>
+      <label class="option"><input type="checkbox" value="F"> F) оқыту ана тілінде жүргізілмейтін сыныптардағы әдебиеттік оқу</label>
+      <label class="option"><input type="checkbox" value="G"> G) шетел тілі</label>
+      <label class="option"><input type="checkbox" value="H"> H) сауат ашу</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Сыныпты екі топқа бөлу оқыту қазақ тілінде жүргізілмейтін сыныптардағы қазақ тілі, оқыту орыс тілінде жүргізілмейтін сыныптардағы орыс тілі және шетел тілі бойынша жүзеге асырылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E">
+    <h3>44. Сыныпты екі топқа бөлуге болатын қосымша пәндер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) әдебиеттік оқу</label>
+      <label class="option"><input type="checkbox" value="B"> B) цифрлық сауаттылық</label>
+      <label class="option"><input type="checkbox" value="C"> C) математика</label>
+      <label class="option"><input type="checkbox" value="D"> D) жаратылыстану</label>
+      <label class="option"><input type="checkbox" value="E"> E) өзін-өзі тану</label>
+      <label class="option"><input type="checkbox" value="F"> F) дүниетану</label>
+      <label class="option"><input type="checkbox" value="G"> G) көркем еңбек</label>
+      <label class="option"><input type="checkbox" value="H"> H) дене шынықтыру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Сыныпты екі топқа бөлуге болатын пәндердің ішінде цифрлық сауаттылық және өзін-өзі тану көрсетілген. Бұл пәндер де арнайы шарттар орындалғанда топқа бөлініп оқытылуы мүмкін.
+    </div>
+  </div>
+
+  <div class="question" data-answer="F">
+    <h3>45. Төтенше жағдайлар кезінде барлық оқу пәндері бойынша топқа бөлуге негіз болатын сынып толымдылығы</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) 10 білім алушыға дейін</label>
+      <label class="option"><input type="checkbox" value="B"> B) 11 білім алушыға дейін</label>
+      <label class="option"><input type="checkbox" value="C"> C) 12 білім алушыға дейін</label>
+      <label class="option"><input type="checkbox" value="D"> D) 13 білім алушыға дейін</label>
+      <label class="option"><input type="checkbox" value="E"> E) 14 білім алушыға дейін</label>
+      <label class="option"><input type="checkbox" value="F"> F) 15 білім алушыға дейін</label>
+      <label class="option"><input type="checkbox" value="G"> G) 16 білім алушыға дейін</label>
+      <label class="option"><input type="checkbox" value="H"> H) 18 білім алушыға дейін</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Шектеу іс-шаралары, карантин, әлеуметтік, табиғи және техногендік сипаттағы төтенше жағдайлар кезінде барлық оқу пәндері бойынша сыныпты топтарға бөлу бір сыныпта 15 білім алушыға дейінгі толымдылықпен жүргізіледі.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C">
+    <h3>46. Инклюзивті білім беру шеңберінде сынып толымдылығын есептеу ерекшелігі</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) әрбір ерекше білім беру қажеттілігі бар балаға жалпы санды бірге кеміту</label>
+      <label class="option"><input type="checkbox" value="B"> B) әрбір ерекше білім беру қажеттілігі бар балаға жалпы санды екіге кеміту</label>
+      <label class="option"><input type="checkbox" value="C"> C) әрбір ерекше білім беру қажеттілігі бар балаға жалпы санды үшке кеміту</label>
+      <label class="option"><input type="checkbox" value="D"> D) әрбір ерекше білім беру қажеттілігі бар балаға жалпы санды төртке кеміту</label>
+      <label class="option"><input type="checkbox" value="E"> E) әрбір ерекше білім беру қажеттілігі бар балаға жалпы санды беске кеміту</label>
+      <label class="option"><input type="checkbox" value="F"> F) әрбір ерекше білім беру қажеттілігі бар балаға жалпы санды алтыға кеміту</label>
+      <label class="option"><input type="checkbox" value="G"> G) әрбір ерекше білім беру қажеттілігі бар балаға жалпы санды жетіге кеміту</label>
+      <label class="option"><input type="checkbox" value="H"> H) әрбір ерекше білім беру қажеттілігі бар балаға жалпы санды сегізге кеміту</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Инклюзивті білім беру шеңберінде көрсетілген пәндер бойынша сыныпты топтарға бөлу әрбір ерекше білім беру қажеттілігі бар балаға сынып толымдылығындағы білім алушылардың жалпы санын үшке кеміту есебінен жүзеге асырылады.
+    </div>
+  </div>
+
+  <div class="result" id="result-section-3"></div>
+  <button onclick="checkSection('section-3','result-section-3')">Нәтижені көрсету</button>
+</section>
+  <section class="section" id="section-4">
+  <span class="tag">1-әдебиет · МЖМБС</span>
+  <h2>4-бөлім. Білім алушылардың дайындық деңгейіне қойылатын талаптар</h2>
+  <p class="intro">
+    Бұл бөлімде “Математика және информатика” білім беру саласы бойынша бастауыш білім беру
+    аяқталғанда күтілетін нәтижелер қарастырылады: математикалық ұғымдарды білу, амалдардың
+    мәнін түсіну, формулалар мен модельдерді қолдану, деректерді талдау, есеп құрастыру және
+    математикалық тұжырымдарды бағалау.
+  </p>
+
+  <div class="question" data-answer="A,D,G">
+    <h3>47. Білім алушы білуі тиіс математикалық ұғымдар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) цифр</label>
+      <label class="option"><input type="checkbox" value="B"> B) сандық теңдеу жүйесі</label>
+      <label class="option"><input type="checkbox" value="C"> C) функция графигінің туындысы</label>
+      <label class="option"><input type="checkbox" value="D"> D) санның үлесі</label>
+      <label class="option"><input type="checkbox" value="E"> E) алгебралық бөлшектің облысы</label>
+      <label class="option"><input type="checkbox" value="F"> F) квадраттық функцияның төбесі</label>
+      <label class="option"><input type="checkbox" value="G"> G) жай бөлшек</label>
+      <label class="option"><input type="checkbox" value="H"> H) тригонометриялық қатынас</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім соңында білім алушы цифр, санның үлесі, жай бөлшек сияқты негізгі математикалық ұғымдардың мәнін білуі тиіс. Бұл сандар мен өлшемдер мазмұнының бастапқы негізі.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E,H">
+    <h3>48. Білім алушы білуі тиіс алгебралық сипаттағы ұғымдар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) квадрат теңдеудің дискриминанты</label>
+      <label class="option"><input type="checkbox" value="B"> B) санды өрнек</label>
+      <label class="option"><input type="checkbox" value="C"> C) рационал теңсіздіктер жүйесі</label>
+      <label class="option"><input type="checkbox" value="D"> D) функцияның анықталу облысы</label>
+      <label class="option"><input type="checkbox" value="E"> E) әріпті өрнек</label>
+      <label class="option"><input type="checkbox" value="F"> F) көпмүшенің дәрежесі</label>
+      <label class="option"><input type="checkbox" value="G"> G) теңдеулер жүйесінің шешімі</label>
+      <label class="option"><input type="checkbox" value="H"> H) теңсіздік</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Санды өрнек, әріпті өрнек және теңсіздік бастауыш математикадағы алгебра элементтеріне жатады. Олар өрнек құру, салыстыру және қатынас орнату дағдыларымен байланысты.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,F">
+    <h3>49. Білім алушы білуі тиіс геометриялық мазмұн</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) геометриялық фигуралардың ұқсастық коэффициенті</label>
+      <label class="option"><input type="checkbox" value="B"> B) көпбұрыштардың сыртқы бұрыштары</label>
+      <label class="option"><input type="checkbox" value="C"> C) жазық геометриялық фигуралардың түрлері</label>
+      <label class="option"><input type="checkbox" value="D"> D) шеңберге жүргізілген жанама қасиеті</label>
+      <label class="option"><input type="checkbox" value="E"> E) кеңістіктегі қима жазықтықтары</label>
+      <label class="option"><input type="checkbox" value="F"> F) геометриялық фигуралардың элементтері</label>
+      <label class="option"><input type="checkbox" value="G"> G) үшбұрыштың синус арқылы ауданы</label>
+      <label class="option"><input type="checkbox" value="H"> H) көпжақтардың проекциялары</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш деңгейде білім алушы жазық және кеңістік геометриялық фигуралардың түрлерін, сондай-ақ олардың элементтерін білуі тиіс. Бұл геометрия элементтерін меңгерудің бастапқы негізі.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,D,H">
+    <h3>50. Арифметикалық амалдардың мәнін түсінуге қатысты мазмұн</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) натурал сандарға қатысты амалдардың мәні</label>
+      <label class="option"><input type="checkbox" value="B"> B) рационал теңдеулерді шешу тәсілі</label>
+      <label class="option"><input type="checkbox" value="C"> C) көпмүшені көбейткіштерге жіктеу жолы</label>
+      <label class="option"><input type="checkbox" value="D"> D) шамаларға қатысты амалдардың мәні</label>
+      <label class="option"><input type="checkbox" value="E"> E) функция мәндерінің өзгеру аралығы</label>
+      <label class="option"><input type="checkbox" value="F"> F) алгебралық бөлшектерді қысқарту ережесі</label>
+      <label class="option"><input type="checkbox" value="G"> G) квадрат түбірлерді түрлендіру тәсілі</label>
+      <label class="option"><input type="checkbox" value="H"> H) арифметикалық амалдардың орындалу реті</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Білім алушы натурал сандарға, шамаларға және олардың арасындағы байланысқа қатысты арифметикалық амалдардың мәні мен орындалу ретін түсінуі тиіс.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E">
+    <h3>51. Жиындармен орындалатын амалдардың мағынасын түсіну</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) жиындардың толықтауышы</label>
+      <label class="option"><input type="checkbox" value="B"> B) жиындардың қиылысуы</label>
+      <label class="option"><input type="checkbox" value="C"> C) жиындардың декарттық көбейтіндісі</label>
+      <label class="option"><input type="checkbox" value="D"> D) жиындардың симметриялық айырмасы</label>
+      <label class="option"><input type="checkbox" value="E"> E) жиындардың бірігуі</label>
+      <label class="option"><input type="checkbox" value="F"> F) жиындардың дәрежелік жиыны</label>
+      <label class="option"><input type="checkbox" value="G"> G) жиындардың реттелген жұбы</label>
+      <label class="option"><input type="checkbox" value="H"> H) жиындардың бос емес ішкі тобы</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш деңгейде білім алушы жиындардың “қиылысуы” және “бірігуі” операцияларының мағынасын түсінуі тиіс. Бұл жиындар арасындағы байланысты анықтауға көмектеседі.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,G">
+    <h3>52. Пайыз бен бөлшек сан арасындағы байланысты түсіну</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) пайызды бүтін санмен алмастыру</label>
+      <label class="option"><input type="checkbox" value="B"> B) бөлшек санды натурал санмен салыстыру</label>
+      <label class="option"><input type="checkbox" value="C"> C) пайызды бөлшек санмен өрнектеу</label>
+      <label class="option"><input type="checkbox" value="D"> D) пайызды координаталық сәуледе белгілеу</label>
+      <label class="option"><input type="checkbox" value="E"> E) бөлшек санды разрядтық қосылғыштарға жіктеу</label>
+      <label class="option"><input type="checkbox" value="F"> F) бөлшек санды геометриялық фигурамен салыстыру</label>
+      <label class="option"><input type="checkbox" value="G"> G) бөлшек сандарды пайызбен өрнектеу</label>
+      <label class="option"><input type="checkbox" value="H"> H) пайызды амал компоненттерімен сәйкестендіру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Білім алушы пайызды бөлшек санмен, ал бөлшек сандарды пайызбен өрнектеуді түсінуі тиіс. Бұл пайыз бен бөлшек арасындағы байланысты меңгеруге бағытталған.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,E,H">
+    <h3>53. Математикалық символдар мен амалдарды қолдану бағыттары</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) өрнектер жазу</label>
+      <label class="option"><input type="checkbox" value="B"> B) фигураларды бояу</label>
+      <label class="option"><input type="checkbox" value="C"> C) сандарды атаусыз көшіру</label>
+      <label class="option"><input type="checkbox" value="D"> D) шамаларды ретсіз орналастыру</label>
+      <label class="option"><input type="checkbox" value="E"> E) санды өрнектерді түрлендіру</label>
+      <label class="option"><input type="checkbox" value="F"> F) теңдіктерді мағынасыз қайталау</label>
+      <label class="option"><input type="checkbox" value="G"> G) өлшем бірліктерін бөлек жазу</label>
+      <label class="option"><input type="checkbox" value="H"> H) есептер шығару</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Математикалық символдар, арифметикалық амалдар мен қасиеттер өрнектер жазу, санды өрнектерді түрлендіру және есептер шығару үшін қолданылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,F">
+    <h3>54. Шамаларды өлшеуге қатысты қолданылатын құралдар мен бірліктер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) шамалардың атаулары ғана</label>
+      <label class="option"><input type="checkbox" value="B"> B) шамалардың стандартты өлшем бірліктері</label>
+      <label class="option"><input type="checkbox" value="C"> C) шамалардың кездейсоқ белгіленуі</label>
+      <label class="option"><input type="checkbox" value="D"> D) шамалардың мәтіндік сипаттамасы</label>
+      <label class="option"><input type="checkbox" value="E"> E) шамалардың көрнекі түсі</label>
+      <label class="option"><input type="checkbox" value="F"> F) шамаларды өлшеу құралдары</label>
+      <label class="option"><input type="checkbox" value="G"> G) шамалардың реттік атауы</label>
+      <label class="option"><input type="checkbox" value="H"> H) шамалардың сыртқы орналасуы</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Білім алушы шамалардың стандартты және стандартты емес өлшем бірліктерін, сондай-ақ шамаларды өлшеу құралдарын қолдана алуы тиіс.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,D,H">
+    <h3>55. Есеп шартын жазу мен модельдеуге қолданылатын құралдар</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) есеп шартының ұзақ баяндауы</label>
+      <label class="option"><input type="checkbox" value="B"> B) есеп шартының ауызша қайталануы</label>
+      <label class="option"><input type="checkbox" value="C"> C) есеп шартының математикалық тілі</label>
+      <label class="option"><input type="checkbox" value="D"> D) есеп шартының графикалық моделі</label>
+      <label class="option"><input type="checkbox" value="E"> E) есеп шартының көркем сипаттамасы</label>
+      <label class="option"><input type="checkbox" value="F"> F) есеп шартының ретсіз жазбасы</label>
+      <label class="option"><input type="checkbox" value="G"> G) есеп шартының дайын жауабы</label>
+      <label class="option"><input type="checkbox" value="H"> H) есеп шартының сызба түріндегі жазбасы</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Есеп шартын жазуда математикалық тіл, графикалық модель және сызба түріндегі жазба қолданылады. Бұл есептің құрылымын түсінікті етуге көмектеседі.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,G">
+    <h3>56. Эйлер-Венн диаграммаларының қолданылу мақсаты</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) жиын элементтері арасындағы қатынастарды көрсету</label>
+      <label class="option"><input type="checkbox" value="B"> B) амал компоненттерінің атауын белгілеу</label>
+      <label class="option"><input type="checkbox" value="C"> C) шамалардың өлшем бірлігін жазу</label>
+      <label class="option"><input type="checkbox" value="D"> D) санды өрнектің мәнін есептеу</label>
+      <label class="option"><input type="checkbox" value="E"> E) геометриялық фигураның ауданын табу</label>
+      <label class="option"><input type="checkbox" value="F"> F) тізбектің келесі мүшесін анықтау</label>
+      <label class="option"><input type="checkbox" value="G"> G) жиындар арасындағы байланысты бейнелеу</label>
+      <label class="option"><input type="checkbox" value="H"> H) бөлшек санды пайызға айналдыру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Эйлер-Венн диаграммалары жиын элементтері арасындағы қатынастарды көрсету үшін қолданылады. Олар жиындардың байланысын көрнекі түрде бейнелеуге мүмкіндік береді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E,H">
+    <h3>57. Талдау әрекеті арқылы қарастырылатын математикалық мазмұн</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) санау тәсілдерінің атауы ғана</label>
+      <label class="option"><input type="checkbox" value="B"> B) ауызша және жазбаша санаудың рационалды тәсілдері</label>
+      <label class="option"><input type="checkbox" value="C"> C) фигуралардың сыртқы түсі</label>
+      <label class="option"><input type="checkbox" value="D"> D) өрнектердің жазылу бағыты ғана</label>
+      <label class="option"><input type="checkbox" value="E"> E) геометриялық фигуралардың ерекшеліктері</label>
+      <label class="option"><input type="checkbox" value="F"> F) шамалардың атауларын қайталау</label>
+      <label class="option"><input type="checkbox" value="G"> G) тізбектерді мағынасыз көшіру</label>
+      <label class="option"><input type="checkbox" value="H"> H) әртүрлі шамалар арасындағы тәуелділіктер</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Талдау әрекеті ауызша және жазбаша санаудың рационалды тәсілдерін, геометриялық фигуралардың ерекшеліктерін және әртүрлі шамалар арасындағы тәуелділіктерді қарастырумен байланысты.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,F">
+    <h3>58. Заңдылықтар мен логикалық есептерді талдауға қатысты мазмұн</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) тізбектің барлық мүшесін өзгеріссіз көшіру</label>
+      <label class="option"><input type="checkbox" value="B"> B) заңдылықты атаусыз қалдыру</label>
+      <label class="option"><input type="checkbox" value="C"> C) тізбектің жетіспейтін элементтерін табу</label>
+      <label class="option"><input type="checkbox" value="D"> D) есеп шартын сансыз жазу</label>
+      <label class="option"><input type="checkbox" value="E"> E) логикалық есепті мәтінсіз беру</label>
+      <label class="option"><input type="checkbox" value="F"> F) күрделі емес логикалық есептерді талдау</label>
+      <label class="option"><input type="checkbox" value="G"> G) заңдылықты ретсіз орналастыру</label>
+      <label class="option"><input type="checkbox" value="H"> H) тізбекті байланыссыз жалғастыру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Білім алушы заңдылықтарды, тізбектің жетіспейтін элементтерін және күрделі емес логикалық есептерді талдай алуы тиіс.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,D,G">
+    <h3>59. Құрастыру әрекеті арқылы орындалатын математикалық нәтижелер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) шамалар арасындағы тәуелділіктің математикалық моделін құрастыру</label>
+      <label class="option"><input type="checkbox" value="B"> B) шамалар арасындағы тәуелділікті атаусыз қалдыру</label>
+      <label class="option"><input type="checkbox" value="C"> C) модельді шартпен байланыстырмай жазу</label>
+      <label class="option"><input type="checkbox" value="D"> D) ұсынылған мәліметтер бойынша есеп құрастыру</label>
+      <label class="option"><input type="checkbox" value="E"> E) ұсынылған мәліметтерді ретсіз көшіру</label>
+      <label class="option"><input type="checkbox" value="F"> F) есепті берілген мәліметсіз құрастыру</label>
+      <label class="option"><input type="checkbox" value="G"> G) берілген заңдылықтар бойынша тізбек құрастыру</label>
+      <label class="option"><input type="checkbox" value="H"> H) тізбекті заңдылықсыз жалғастыру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Құрастыру әрекеті шамалар арасындағы тәуелділіктің математикалық моделін жасау, ұсынылған мәліметтер бойынша есеп құрастыру және заңдылық бойынша тізбек құрастыру арқылы көрінеді.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E">
+    <h3>60. Нақты нысандар мен процестерді модельдеуге қатысты әрекеттер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) нақты нысандарды атауымен ғана көрсету</label>
+      <label class="option"><input type="checkbox" value="B"> B) нақты нысандардың бейнелер түріндегі қарапайым модельдерін құрастыру</label>
+      <label class="option"><input type="checkbox" value="C"> C) нақты нысандарды өлшемсіз сипаттау</label>
+      <label class="option"><input type="checkbox" value="D"> D) нақты процестерді байланыссыз жазу</label>
+      <label class="option"><input type="checkbox" value="E"> E) нақты процестердің сызбалар түріндегі қарапайым модельдерін құрастыру</label>
+      <label class="option"><input type="checkbox" value="F"> F) нақты процестерді ретсіз белгілеу</label>
+      <label class="option"><input type="checkbox" value="G"> G) нақты нысандарды формуласыз көшіру</label>
+      <label class="option"><input type="checkbox" value="H"> H) нақты процестерді шартсыз атау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Математикалық модельдеу нақты нысандар мен процестердің бейне немесе сызба түріндегі қарапайым модельдерін құрастыруға бағытталады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,F,H">
+    <h3>61. Бағалау әрекеті арқылы қарастырылатын математикалық нәтижелер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) өлшем нәтижелерін көшіріп жазу</label>
+      <label class="option"><input type="checkbox" value="B"> B) өлшем нәтижелерін атаусыз белгілеу</label>
+      <label class="option"><input type="checkbox" value="C"> C) өлшем нәтижелерін бағалау</label>
+      <label class="option"><input type="checkbox" value="D"> D) тұжырымдарды мағынасыз қайталау</label>
+      <label class="option"><input type="checkbox" value="E"> E) тұжырымдарды байланыссыз жазу</label>
+      <label class="option"><input type="checkbox" value="F"> F) математикалық тұжырымдардың ақиқаттылығын бағалау</label>
+      <label class="option"><input type="checkbox" value="G"> G) деректерді түсіндірмесіз көшіру</label>
+      <label class="option"><input type="checkbox" value="H"> H) кесте мен диаграммадағы деректерді бағалау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бағалау әрекеті өлшем нәтижелерін, математикалық тұжырымдардың ақиқаттылығын немесе жалғандығын және кесте, диаграммадағы деректерді бағалаумен байланысты.
+    </div>
+  </div>
+
+  <div class="question" data-answer="D">
+    <h3>62. Есеп. Қорапта 8 қызыл және 5 көк қарындаш бар. Барлығы неше қарындаш бар?</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) 10 қарындаш</label>
+      <label class="option"><input type="checkbox" value="B"> B) 11 қарындаш</label>
+      <label class="option"><input type="checkbox" value="C"> C) 12 қарындаш</label>
+      <label class="option"><input type="checkbox" value="D"> D) 13 қарындаш</label>
+      <label class="option"><input type="checkbox" value="E"> E) 14 қарындаш</label>
+      <label class="option"><input type="checkbox" value="F"> F) 15 қарындаш</label>
+      <label class="option"><input type="checkbox" value="G"> G) 16 қарындаш</label>
+      <label class="option"><input type="checkbox" value="H"> H) 17 қарындаш</label>
+    </div>
+    <div class="explanation">
+      <b>Шешуі:</b> 1-қадам: қызыл қарындаш саны — 8. 2-қадам: көк қарындаш саны — 5. 3-қадам: барлығын табу үшін қосамыз: 8 + 5 = 13. <br>
+      <b>Қорытынды:</b> қорапта барлығы 13 қарындаш бар.
+    </div>
+  </div>
+
+  <div class="question" data-answer="E">
+    <h3>63. Есеп. Тік төртбұрыштың ұзындығы 9 см, ені 4 см. Периметрін табыңыз</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) 18 см</label>
+      <label class="option"><input type="checkbox" value="B"> B) 20 см</label>
+      <label class="option"><input type="checkbox" value="C"> C) 22 см</label>
+      <label class="option"><input type="checkbox" value="D"> D) 24 см</label>
+      <label class="option"><input type="checkbox" value="E"> E) 26 см</label>
+      <label class="option"><input type="checkbox" value="F"> F) 28 см</label>
+      <label class="option"><input type="checkbox" value="G"> G) 30 см</label>
+      <label class="option"><input type="checkbox" value="H"> H) 36 см</label>
+    </div>
+    <div class="explanation">
+      <b>Формула:</b> P = 2 · (a + b). <br>
+      <b>Шешуі:</b> 1-қадам: a = 9 см, b = 4 см. 2-қадам: P = 2 · (9 + 4). 3-қадам: P = 2 · 13 = 26 см. <br>
+      <b>Қорытынды:</b> тік төртбұрыштың периметрі 26 см.
+    </div>
+  </div>
+
+  <div class="result" id="result-section-4"></div>
+  <button onclick="checkSection('section-4','result-section-4')">Нәтижені көрсету</button>
+</section>
+  <section class="section" id="section-5">
+  <span class="tag">1-әдебиет · МЖМБС</span>
+  <h2>5-бөлім. Бағалау және оқу мерзіміне қойылатын талаптар</h2>
+  <p class="intro">
+    Бұл бөлімде оқу жетістіктерін бағалау, бағалау критерийлері, формативті және жиынтық бағалау,
+    бастауыш білім беру бағдарламасын меңгеру мерзімі, оқу жылының ұзақтығы және каникул уақыты қарастырылады.
+  </p>
+
+  <div class="question" data-answer="B,E">
+    <h3>64. Білім алушылардың оқу жетістіктерін бағалауда қолданылатын негіздер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) оқу тапсырмаларының сыртқы безендірілуі</label>
+      <label class="option"><input type="checkbox" value="B"> B) білімдерді бағалау критерийлері</label>
+      <label class="option"><input type="checkbox" value="C"> C) оқу пәндерінің атаулары ғана</label>
+      <label class="option"><input type="checkbox" value="D"> D) сыныптардың реттік белгіленуі</label>
+      <label class="option"><input type="checkbox" value="E"> E) оқу жетістіктерінің деңгейін өлшеу</label>
+      <label class="option"><input type="checkbox" value="F"> F) оқу кабинеттерінің орналасуы</label>
+      <label class="option"><input type="checkbox" value="G"> G) сабақ кестесінің сыртқы формасы</label>
+      <label class="option"><input type="checkbox" value="H"> H) дәптерлердің бірдей рәсімделуі</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Оқу жетістіктерін бағалау білімдерді бағалау критерийлерін пайдалану арқылы жүзеге асырылады. Бағалау критерийлері білім алушылардың оқу жетістіктерінің деңгейін өлшеу үшін қолданылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,D,H">
+    <h3>65. Бағалауды жүзеге асыруда ескерілетін мазмұндық негіздер</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) нақты бөлім бойынша оқу жетістіктерін қадағалау</label>
+      <label class="option"><input type="checkbox" value="B"> B) оқу пәнін атауы бойынша ғана белгілеу</label>
+      <label class="option"><input type="checkbox" value="C"> C) тапсырмаларды мазмұнсыз топтастыру</label>
+      <label class="option"><input type="checkbox" value="D"> D) ортақ тақырып бойынша оқу жетістіктерін қадағалау</label>
+      <label class="option"><input type="checkbox" value="E"> E) сынып деңгейін сыртқы белгімен ажырату</label>
+      <label class="option"><input type="checkbox" value="F"> F) оқу жүктемесін бағалаудан бөлек қарастыру</label>
+      <label class="option"><input type="checkbox" value="G"> G) оқу нәтижесін мақсаттардан ажырату</label>
+      <label class="option"><input type="checkbox" value="H"> H) оқу мақсаттары жүйесіне сәйкес жүзеге асыру</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бағалау нақты бөлім немесе ортақ тақырып бойынша оқу жетістіктерін қадағалау негізінде және оқу бағдарламасында көрсетілген оқу мақсаттары жүйесіне сәйкес жүзеге асырылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C,F">
+    <h3>66. Оқу жетістіктерін бағалау нысандары</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) ағымдық талдау</label>
+      <label class="option"><input type="checkbox" value="B"> B) тақырыптық бақылау</label>
+      <label class="option"><input type="checkbox" value="C"> C) формативті бағалау</label>
+      <label class="option"><input type="checkbox" value="D"> D) диагностикалық тексеру</label>
+      <label class="option"><input type="checkbox" value="E"> E) салыстырмалы бақылау</label>
+      <label class="option"><input type="checkbox" value="F"> F) жиынтық бағалау</label>
+      <label class="option"><input type="checkbox" value="G"> G) қорытынды әңгімелесу</label>
+      <label class="option"><input type="checkbox" value="H"> H) аралық бақылау</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Білім алушылардың оқу жетістіктерін бағалау формативті және жиынтық бағалау нысанында жүзеге асырылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="D">
+    <h3>67. Бастауыш білім беру деңгейінде формативті және жиынтық бағалау қай сыныптан бастап қолданылады?</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) мектепалды сыныптан бастап</label>
+      <label class="option"><input type="checkbox" value="B"> B) 1-сыныптан бастап</label>
+      <label class="option"><input type="checkbox" value="C"> C) 1-сыныптың екінші жартыжылдығынан бастап</label>
+      <label class="option"><input type="checkbox" value="D"> D) 2-сыныптан бастап</label>
+      <label class="option"><input type="checkbox" value="E"> E) 2-сыныптың екінші тоқсанынан бастап</label>
+      <label class="option"><input type="checkbox" value="F"> F) 3-сыныптан бастап</label>
+      <label class="option"><input type="checkbox" value="G"> G) 4-сыныптан бастап</label>
+      <label class="option"><input type="checkbox" value="H"> H) бастауыш білім аяқталғаннан кейін</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім беру деңгейінде бағалау 2-сыныптан бастап формативті және жиынтық бағалауды қолдану арқылы жүзеге асырылады.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B">
+    <h3>68. Бастауыш білім берудің жалпы білім беретін оқу бағдарламасын меңгеру мерзімі</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) үш жыл</label>
+      <label class="option"><input type="checkbox" value="B"> B) төрт жыл</label>
+      <label class="option"><input type="checkbox" value="C"> C) бес жыл</label>
+      <label class="option"><input type="checkbox" value="D"> D) алты жыл</label>
+      <label class="option"><input type="checkbox" value="E"> E) жеті жыл</label>
+      <label class="option"><input type="checkbox" value="F"> F) сегіз жыл</label>
+      <label class="option"><input type="checkbox" value="G"> G) тоғыз жыл</label>
+      <label class="option"><input type="checkbox" value="H"> H) он жыл</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Бастауыш білім берудің жалпы білім беретін оқу бағдарламасын меңгеру мерзімі төрт жыл деп көрсетілген.
+    </div>
+  </div>
+
+  <div class="question" data-answer="A,F">
+    <h3>69. Оқу жылының ұзақтығы бойынша дұрыс көрсетілген оқу апталары</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) 1-сыныпта 33 оқу аптасы</label>
+      <label class="option"><input type="checkbox" value="B"> B) 1-сыныпта 34 оқу аптасы</label>
+      <label class="option"><input type="checkbox" value="C"> C) 1-сыныпта 35 оқу аптасы</label>
+      <label class="option"><input type="checkbox" value="D"> D) 2-сыныпта 33 оқу аптасы</label>
+      <label class="option"><input type="checkbox" value="E"> E) 2-сыныпта 35 оқу аптасы</label>
+      <label class="option"><input type="checkbox" value="F"> F) 2-4-сыныптарда 34 оқу аптасы</label>
+      <label class="option"><input type="checkbox" value="G"> G) 2-4-сыныптарда 35 оқу аптасы</label>
+      <label class="option"><input type="checkbox" value="H"> H) 2-4-сыныптарда 36 оқу аптасы</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Оқу жылының ұзақтығы 1-сыныпта 33 оқу аптасын, ал 2-4-сыныптарда 34 оқу аптасын құрайды.
+    </div>
+  </div>
+
+  <div class="question" data-answer="C">
+    <h3>70. Оқу жылындағы каникул уақытының ең төменгі ұзақтығы</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) кемінде 20 күн</label>
+      <label class="option"><input type="checkbox" value="B"> B) кемінде 25 күн</label>
+      <label class="option"><input type="checkbox" value="C"> C) кемінде 30 күн</label>
+      <label class="option"><input type="checkbox" value="D"> D) кемінде 35 күн</label>
+      <label class="option"><input type="checkbox" value="E"> E) кемінде 40 күн</label>
+      <label class="option"><input type="checkbox" value="F"> F) кемінде 45 күн</label>
+      <label class="option"><input type="checkbox" value="G"> G) кемінде 50 күн</label>
+      <label class="option"><input type="checkbox" value="H"> H) кемінде 60 күн</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Оқу жылындағы каникул уақытының ұзақтығы кемінде 30 күнді құрайды.
+    </div>
+  </div>
+
+  <div class="question" data-answer="B,E,H">
+    <h3>71. Оқу жылында берілетін негізгі каникул кезеңдері</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) жазғы кезең</label>
+      <label class="option"><input type="checkbox" value="B"> B) күзгі кезең</label>
+      <label class="option"><input type="checkbox" value="C"> C) тоқсанаралық кезең</label>
+      <label class="option"><input type="checkbox" value="D"> D) мерекелік кезең</label>
+      <label class="option"><input type="checkbox" value="E"> E) қысқы кезең</label>
+      <label class="option"><input type="checkbox" value="F"> F) аралық кезең</label>
+      <label class="option"><input type="checkbox" value="G"> G) қосымша кезең</label>
+      <label class="option"><input type="checkbox" value="H"> H) көктемгі кезең</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> Каникулдар оқу жылында үш рет беріледі: күзде, қыста және көктемде.
+    </div>
+  </div>
+
+  <div class="question" data-answer="D">
+    <h3>72. 1-сынып білім алушылары үшін үшінші тоқсанда берілетін қосымша каникул ұзақтығы</h3>
+    <div class="options">
+      <label class="option"><input type="checkbox" value="A"> A) үш күн</label>
+      <label class="option"><input type="checkbox" value="B"> B) төрт күн</label>
+      <label class="option"><input type="checkbox" value="C"> C) бес күн</label>
+      <label class="option"><input type="checkbox" value="D"> D) бір апта</label>
+      <label class="option"><input type="checkbox" value="E"> E) екі апта</label>
+      <label class="option"><input type="checkbox" value="F"> F) он күн</label>
+      <label class="option"><input type="checkbox" value="G"> G) он бес күн</label>
+      <label class="option"><input type="checkbox" value="H"> H) бір ай</label>
+    </div>
+    <div class="explanation">
+      <b>Түсіндірме:</b> 1-сыныптың білім алушылары үшін үшінші тоқсанда ұзақтығы бір апта болатын қосымша каникул уақыты беріледі.
+    </div>
+  </div>
+
+  <div class="result" id="result-section-5"></div>
+  <button onclick="checkSection('section-5','result-section-5')">Нәтижені көрсету</button>
+</section>
+    <div class="result" id="result-section-5"></div>
+  <button onclick="checkSection('section-5','result-section-5')">Нәтижені көрсету</button>
+</section>
+
+</main>
+
+<footer>
+  © @elnazm_ln
+</footer>
+
+<a class="toTop" href="#top" aria-label="Жоғарыға өту">↑</a>
+
+</body>
+</html>
